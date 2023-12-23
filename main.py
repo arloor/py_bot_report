@@ -64,5 +64,5 @@ if __name__ == "__main__":
     # 从环境变量获取 bot_token tg_chat_id 
     bot_token = os.environ.get('bot_token')
     tg_chat_id = os.environ.get('tg_chat_id')
-    send_telegram_message(tg_chat_id, f"`{str(now)} 最近24小时访问量: {req_count}`", bot_token)
+    send_telegram_message(tg_chat_id, f"`{now.strftime('%m-%d %H:%M')} 最近24小时访问量: {req_count}`", bot_token)
 
