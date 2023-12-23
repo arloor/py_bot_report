@@ -8,5 +8,9 @@
 ## settings
 
 ```bash
-"python.languageServer": "Pylance"
+ "python.analysis.inlayHints.callArgumentNames": "all",
+    "python.analysis.inlayHints.functionReturnTypes": true,
+    "python.analysis.inlayHints.variableTypes": true,
+    "python.analysis.autoFormatStrings": true,
+    "python.languageServer": "Pylance"
 ```
