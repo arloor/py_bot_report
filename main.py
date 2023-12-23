@@ -27,15 +27,8 @@ def send_telegram_message(tg_chat_id, text,bot_token):
         print(rjson.get('result'))
     return isOk
 
-def tormorrow():
-    # 获取当前日期时间
-    now = datetime.datetime.now()
-    # 获取明天的日期
-    tomorrow = now.date() + datetime.timedelta(days=1)
-    # 将明天的日期时间设置为00:00:00
-    midnight_tomorrow = datetime.datetime.combine(tomorrow, datetime.time.min)
-    print(midnight_tomorrow)
-    return midnight_tomorrow
+def now():
+    return datetime.datetime.now()
 
 def query_req_total_of(midnight_tomorrow):
     url = 'http://us.arloor.dev:9099/api/v1/query'  # Replace with your target URL
@@ -66,10 +59,10 @@ def query_req_total_of(midnight_tomorrow):
 
 
 if __name__ == "__main__":
-    midnight_tomorrow=tormorrow()
+    now=now()
     req_count=query_req_total_of(midnight_tomorrow)
     # 从环境变量获取 bot_token tg_chat_id 
     bot_token = os.environ.get('bot_token')
     tg_chat_id = os.environ.get('tg_chat_id')
-    send_telegram_message(tg_chat_id, f"`{str(midnight_tomorrow)} 最近24小时访问量: {req_count}`", bot_token)
+    send_telegram_message(tg_chat_id, f"`{str(now)} 最近24小时访问量: {req_count}`", bot_token)
 
