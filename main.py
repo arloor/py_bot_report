@@ -7,7 +7,7 @@ import time
 import os
 
 def send_telegram_message(tg_chat_id, text,bot_token):
-    body = {"chat_id": tg_chat_id, "text": text, "parse_mode": "markdown"}
+    body = {"chat_id": tg_chat_id, "text": text, "parse_mode": "MarkdownV2"}
     cmd = f'curl -sSL -X POST -H "Content-Type: application/json" -d \'{json.dumps(body)}\' https://api.telegram.org/bot{bot_token}/sendMessage'
     
     pipe = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -64,5 +64,10 @@ if __name__ == "__main__":
     # 从环境变量获取 bot_token tg_chat_id 
     bot_token = os.environ.get('bot_token')
     tg_chat_id = os.environ.get('tg_chat_id')
-    send_telegram_message(tg_chat_id, f"`{now.strftime('%m-%d %H:%M')} 最近24小时访问量: {req_count}`", bot_token)
+    send_telegram_message(tg_chat_id, f"""
+    ```
+    {now.strftime('%m-%d %H:%M')} 报告：
+    最近24小时访问量: {req_count}
+    ```
+    """, bot_token)
 
