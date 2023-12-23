@@ -70,6 +70,6 @@ if __name__ == "__main__":
     bot_token = os.environ.get('bot_token')
     tg_chat_id = os.environ.get('tg_chat_id')
     midnight_tomorrow=tormorrow()
-    req_count=query_prom_current(midnight_tomorrow)
+    req_count=query_req_total_of(midnight_tomorrow)
     send_telegram_message(tg_chat_id, f"`{str(midnight_tomorrow)} 最近24小时访问量: {req_count}`", bot_token)
 
