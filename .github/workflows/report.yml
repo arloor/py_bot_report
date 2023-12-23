@@ -1,0 +1,26 @@
+name: Update
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+  schedule:
+    - cron: '0 0 * * *'
+
+env:
+  bot_token: ${{ secrets.BOT_TOKEN }}
+  tg_chat_id: ${{ secrets.TG_CHAT_ID }}
+  TZ: Asia/Shanghai
+
+jobs:
+  all:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: prepare
+        run: |
+          pip install -r requirements.txt
+      - name: run
+        run: |
+          python3 main.py
