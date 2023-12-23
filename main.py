@@ -38,8 +38,7 @@ def tormorrow():
     # 将datetime对象转换为时间戳
     timestamp = midnight_tomorrow.timestamp()
     # 将时间戳转换为毫秒
-    milliseconds = int(timestamp * 1000)
-    return milliseconds
+    return timestamp
 
 def query_prom_current():
     url = 'http://us.arloor.dev:9099/api/v1/query'  # Replace with your target URL
