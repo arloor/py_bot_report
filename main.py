@@ -35,16 +35,13 @@ def tormorrow():
     # 将明天的日期时间设置为00:00:00
     midnight_tomorrow = datetime.datetime.combine(tomorrow, datetime.time.min)
     print(midnight_tomorrow)
-    # 将datetime对象转换为时间戳
-    timestamp = midnight_tomorrow.timestamp()
-    # 将时间戳转换为毫秒
-    return timestamp
+    return midnight_tomorrow
 
-def query_prom_current():
+def query_req_total_of(midnight_tomorrow):
     url = 'http://us.arloor.dev:9099/api/v1/query'  # Replace with your target URL
     form_data = {
         'query': 'sum(increase(req_from_out_total{path="all"}[1d])) by ()',
-        'time': tormorrow(),
+        'time': midnight_tomorrow.timestamp(),
     }
 
     response = requests.post(url, data=form_data)
@@ -72,6 +69,7 @@ if __name__ == "__main__":
     # 从环境变量获取 bot_token tg_chat_id 
     bot_token = os.environ.get('bot_token')
     tg_chat_id = os.environ.get('tg_chat_id')
-    req_count=query_prom_current()
-    send_telegram_message(tg_chat_id, f'最近24小时访问量: **{req_count}** @{datetime.datetime.now()}', bot_token)
+    midnight_tomorrow=tormorrow()
+    req_count=query_prom_current(midnight_tomorrow)
+    send_telegram_message(tg_chat_id, f"`{str(midnight_tomorrow)} 最近24小时访问量: {req_count}`", bot_token)
 
