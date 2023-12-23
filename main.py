@@ -27,9 +27,6 @@ def send_telegram_message(tg_chat_id, text,bot_token):
         print(rjson.get('result'))
     return isOk
 
-def now():
-    return datetime.datetime.now()
-
 def query_req_total_of(time):
     url = 'http://us.arloor.dev:9099/api/v1/query'  # Replace with your target URL
     form_data = {
@@ -59,7 +56,7 @@ def query_req_total_of(time):
 
 
 if __name__ == "__main__":
-    now=now()
+    now=datetime.datetime.now()
     req_count=query_req_total_of(now)
     # 从环境变量获取 bot_token tg_chat_id 
     bot_token = os.environ.get('bot_token')
