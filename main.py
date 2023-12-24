@@ -27,8 +27,8 @@ def send_telegram_message(tg_chat_id, text,bot_token):
         print(rjson.get('result'))
     return isOk
 
-def query_req_total_of(time):
-    url = 'http://us.arloor.dev:9099/api/v1/query'  # Replace with your target URL
+def query_req_total_of(time,prom_addr):
+    url = f'{prom_addr}/api/v1/query'  # Replace with your target URL
     form_data = {
         'query': 'sum(increase(req_from_out_total{path="all"}[1d])) by ()',
         'time': time.timestamp(),
@@ -56,11 +56,14 @@ def query_req_total_of(time):
 
 
 if __name__ == "__main__":
-    now=datetime.datetime.now()
-    req_count=query_req_total_of(now)
-    # 从环境变量获取 bot_token tg_chat_id 
+    # 从环境变量获取
     bot_token = os.environ.get('bot_token')
     tg_chat_id = os.environ.get('tg_chat_id')
+    prom_addr = os.environ.get('prom_addr')
+
+    now=datetime.datetime.now()
+    req_count=query_req_total_of(now,prom_addr)
+
     send_telegram_message(tg_chat_id, f"```Report\n\
 {now.strftime('%m-%d %H:%M')}\n\
 最近24小时访问量: {req_count}\n\
