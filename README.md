@@ -4,6 +4,7 @@
 
 - ms-python.vscode-pylance
 - ms-python.python
+- ms-python.pylint 我并没有装这个，因为我用的是pylance
 
 ## settings
 
