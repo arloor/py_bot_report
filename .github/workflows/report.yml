@@ -12,6 +12,7 @@ env:
   bot_token: ${{ secrets.BOT_TOKEN }}
   tg_chat_id: ${{ secrets.TG_CHAT_ID }}
   prom_addr: ${{ secrets.PROM_ADDR }}
+  auth_header: ${{ secrets.AUTH_HEADER }}
   TZ: Asia/Shanghai
 
 jobs:

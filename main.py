@@ -27,14 +27,14 @@ def send_telegram_message(tg_chat_id, text,bot_token):
         print(rjson.get('result'))
     return isOk
 
-def query_req_total_of(time,prom_addr):
+def query_req_total_of(time,prom_add,auth_header):
     url = f'{prom_addr}/api/v1/query'  # Replace with your target URL
     form_data = {
         'query': 'sum(increase(req_from_out_total{path="all"}[1d])) by ()',
         'time': time.timestamp(),
     }
 
-    response = requests.post(url, data=form_data)
+    response = requests.post(url, data=form_data,headers={'Authorization':auth_header})
     print(response.status_code)
     print(response.text)
     res=json.loads(response.text)
@@ -60,9 +60,10 @@ if __name__ == "__main__":
     bot_token = os.environ.get('bot_token')
     tg_chat_id = os.environ.get('tg_chat_id')
     prom_addr = os.environ.get('prom_addr')
+    auth_header=os.environ.get('auth_header')
 
     now=datetime.datetime.now()
-    req_count=query_req_total_of(now,prom_addr)
+    req_count=query_req_total_of(now,prom_addr,auth_header)
 
     send_telegram_message(tg_chat_id, f"```Report\n\
 {now.strftime('%m-%d %H:%M')}\n\
