@@ -1,5 +1,5 @@
 {
     "github-actions.workflows.pinned.workflows": [
-        ".github/workflows/main.yml"
+        ".github/workflows/report.yml"
     ]
 }
