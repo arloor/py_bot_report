@@ -31,7 +31,7 @@ def query_req_total_of(time,prom_add,auth_header):
     url = f'{prom_addr}/api/v1/query'  # Replace with your target URL
     form_data = {
         'query': 'sum(increase(req_from_out_total{path="all"}[1d])) by ()',
-        'time': time.timestamp(),
+        'time': time,
     }
 
     response = requests.post(url, data=form_data,headers={'Authorization':auth_header})
@@ -62,8 +62,10 @@ if __name__ == "__main__":
     prom_addr = os.environ.get('prom_addr')
     auth_header=os.environ.get('auth_header')
 
-    now=datetime.datetime.now()
-    req_count=query_req_total_of(now,prom_addr,auth_header)
+    now=datetime.datetime.now().replace(hour=0,minute=0,second=0,microsecond=0)
+    timestamp=now.timestamp()
+    print(timestamp)
+    req_count=query_req_total_of(timestamp,prom_addr,auth_header)
 
     send_telegram_message(tg_chat_id, f"```Report\n\
 {now.strftime('%m-%d %H:%M')}\n\
