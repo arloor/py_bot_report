@@ -62,13 +62,13 @@ if __name__ == "__main__":
     prom_addr = os.environ.get('prom_addr')
     auth_header=os.environ.get('auth_header')
 
-    now=datetime.datetime.now().replace(hour=0,minute=0,second=0,microsecond=0)
-    timestamp=now.timestamp()
-    print(timestamp)
+    today_0h=datetime.datetime.now().replace(hour=0,minute=0,second=0,microsecond=0)
+    timestamp=today_0h.timestamp()
+    print(today_0h,timestamp)
     req_count=query_req_total_of(timestamp,prom_addr,auth_header)
 
     send_telegram_message(tg_chat_id, f"```Report\n\
-{now.strftime('%m-%d %H:%M')}\n\
+{today_0h.strftime('%m-%d %H:%M')}\n\
 最近24小时访问量: {req_count}\n\
 ```", bot_token)
 
