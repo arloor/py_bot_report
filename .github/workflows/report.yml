@@ -20,13 +20,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: prepare
+      - name: Set timezone to Asia/Shanghai
+        run: sudo timedatectl set-timezone Asia/Shanghai
+      - name: prepare and run
         run: |
           python3 -m venv venv
           source venv/bin/activate
           pip3 install -r requirements.txt
-      - name: Set timezone to Asia/Shanghai
-        run: sudo timedatectl set-timezone Asia/Shanghai
-      - name: run
-        run: |
           python3 main.py 
