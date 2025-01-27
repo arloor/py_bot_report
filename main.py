@@ -34,7 +34,7 @@ def query_req_total_of(time,prom_add,auth_header):
         'time': time,
     }
 
-    response = requests.post(url, data=form_data,headers={'Authorization':auth_header,'Content-Type': 'application/x-www-form-urlencoded'})
+    response = requests.post(url, data=form_data,headers={'Authorization':auth_header})
     print(response.status_code)
     print(response.text)
     res=json.loads(response.text)
