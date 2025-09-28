@@ -27,7 +27,7 @@ def send_telegram_message(tg_chat_id, text,bot_token):
         print(rjson.get('result'))
     return isOk
 
-def query_req_total_of(time,prom_add,auth_header):
+def query_req_total_of(time,prom_addr,auth_header):
     url = f'{prom_addr}/api/v1/query'  # Replace with your target URL
     form_data = {
         'query': 'sum(increase(req_from_out_total{path="all"}[1d])) by ()',
